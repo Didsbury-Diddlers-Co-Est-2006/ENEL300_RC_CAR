@@ -50,10 +50,23 @@ Register settings:
 
 NOTE:
 The value 6666 corresponds to the formula:
-    BAUD = (f_CLK_PER / (2 * f_BAUD)) - 1
-    = (16000000 / (2 * 9600)) - 1 ≈ 832
-But in this code, a baud value of 6666 is used — this likely represents
-a fractional setting or empirical tuning to match the module's expectations.
+    BAUD = (64 * f_CLK_PER) / (S * f_BAUD)
+         = (64 * 16000000) / (16 * 9600)) 
+         ≈ 6666
+
+Where,
+    f_CLK_PER = System clock frequency (16 MHz)
+
+    S is the number of Samples per bit:
+        - Asynchronous Normal: S = 16
+        - Asynchronous Double: S = 8
+        - Synchronous: S = 2
+
+    f_BAUD = Desired baud rate (9600)
+
+    BAUD is the USART.BAUD register value. And rounded down towards zero.
+
+    64 is an arbitrary constant that is used to scale the baud rate.
 
 -------------------------------------------------------------------------------
 
