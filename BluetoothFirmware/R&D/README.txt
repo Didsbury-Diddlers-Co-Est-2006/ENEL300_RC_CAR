@@ -1,5 +1,5 @@
 ===============================================================================
-README - AVR128DB28 Bluetooth USART Communication
+README - AVR128DB28 Bluetooth USART Communication - Basic
 ===============================================================================
 
 PROJECT OVERVIEW
