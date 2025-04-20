@@ -128,7 +128,8 @@
         {
             "name": "Project files",
             "files": [
-                "ControllerFirmware/ControllerFirmware.X/*"
+                "ControllerFirmware/ControllerFirmware.X/*",
+                "BluetoothFirmware/Application/ECU_S&R.c"
             ],
             "encoding": "ISO-8859-1"
         }

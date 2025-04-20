@@ -138,7 +138,8 @@
             "name": "Project files",
             "files": [
                 "ECUFirmware/ECUFirmware.X/Makefile",
-                "ECUFirmware/ECUFirmware.X/*{.c,.h}"
+                "ECUFirmware/ECUFirmware.X/*{.c,.h}",
+                "BluetoothFirmware/Application/ECU_S&R.c"
             ],
             "encoding": "ISO-8859-1"
         }

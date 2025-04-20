@@ -51,7 +51,7 @@ Register settings:
 NOTE:
 The value 6666 corresponds to the formula:
     BAUD = (64 * f_CLK_PER) / (S * f_BAUD)
-         = (64 * 16000000) / (16 * 9600)) 
+         = (64 * 16000000) / (16 * 9600)
          ≈ 6666
 
 Where,
@@ -64,7 +64,7 @@ Where,
 
     f_BAUD = Desired baud rate (9600)
 
-    BAUD is the USART.BAUD register value. And rounded down towards zero.
+    BAUD is the USART.BAUD register value and rounded down towards zero.
 
     64 is an arbitrary constant that is used to scale the baud rate.
 
