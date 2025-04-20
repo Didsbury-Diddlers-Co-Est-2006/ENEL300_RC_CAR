@@ -10,8 +10,8 @@
  
  #define PACKET_SIZE 3
 
- volatile uint8_t rx_buffer[PACKET_SIZE];
- volatile uint8_t tx_buffer[PACKET_SIZE];
+ volatile uint16_t rx_buffer[PACKET_SIZE];
+ volatile uint16_t tx_buffer[PACKET_SIZE];
  
  //Define Clock speed, 16MHZ and Do not enable global interrupts before running USART_Init()
  void setup_clock() {
@@ -60,12 +60,12 @@
         tx_buffer[1] = right_motor_sm_value;
         tx_buffer[2] = light_toggle_bit;
 
-        for (uint8_t i = 0; i < PACKET_SIZE; i++) {
+        for (uint16_t i = 0; i < PACKET_SIZE; i++) {
             USART_Transmit(tx_buffer[i]);
         }
 
         // --- Receive response packet ---
-        for (uint8_t i = 0; i < PACKET_SIZE; i++) {
+        for (uint16_t i = 0; i < PACKET_SIZE; i++) {
             rx_buffer[i] = USART_Receive();
         }
 
