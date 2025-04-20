@@ -1,4 +1,4 @@
-Define Clock speed, 16MHZ and Do not enable global interrupts before running USART_Init()
+// Define Clock speed, 16MHZ and Do not enable global interrupts before running USART_Init()
 
 
 
