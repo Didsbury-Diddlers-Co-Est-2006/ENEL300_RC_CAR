@@ -21,13 +21,13 @@ void setup_pins() {
 void setup_pwm() {
     // TCB0: Left motor on PC2
     TCB0.CTRLA = 0b00000011;              // CLKSEL = CLKDIV1 (bit 0), ENABLE (bit 1)
-    TCB0.CTRLB = 0b00000101;              // CNTMODE = PWM8
+    TCB0.CTRLB = 0b00010111;              // CNTMODE = PWM8
     TCB0.CCMP = 0;
     TCB0.CNT = 0;
 
     // TCB1: Right motor on PC3
     TCB1.CTRLA = 0b00000011;
-    TCB1.CTRLB = 0b00000101;
+    TCB1.CTRLB = 0b00010111;
     TCB1.CCMP = 0;
     TCB1.CNT = 0;
 }
