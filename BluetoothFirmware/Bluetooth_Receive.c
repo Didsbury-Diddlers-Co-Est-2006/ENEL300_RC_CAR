@@ -7,7 +7,6 @@
 
 
  #include <avr/io.h>
- #
  
  //Define Clock speed, 16MHZ and Do not enable global interrupts before running USART_Init()
  void setup_clock() {
