@@ -62,7 +62,7 @@
     // --- Transmit response packet ---
      USART_Transmit(0x0069);  // Takes in sensor data variable -> converted to 0x00XX format        
  
-     _delay_ms(10);
+     _delay_ms(1);
     // --- Receive control packet ---
  
      for (int i = 0; i < 3; i++) {
