@@ -1,16 +1,19 @@
+#define F_CPU 16000000UL
 #include <avr/io.h>
 #define PACKET_SIZE 3
 volatile uint16_t result_right = 0;
 volatile uint16_t result_left = 0;
 volatile uint8_t result_8_bit = 0;
 volatile uint8_t button_pressed = 0;
-volatile uint16_t rx_buffer[PACKET_SIZE];
+volatile uint16_t rx_buffer = 0;
 volatile uint16_t tx_buffer[PACKET_SIZE];
+volatile int count = 0;
 
 #include <stdint.h>
 #include <util/delay.h>
+
 uint8_t adc_to_signmag_custom(uint16_t adc_val) {
-    uint8_t sign = 0;
+    uint8_t sign = 0; 
     uint8_t magnitude = 0;
 
     if (adc_val >= 2071) {
@@ -51,7 +54,9 @@ uint8_t adc_to_signmag_custom(uint16_t adc_val) {
  uint16_t USART_Receive(void) {
     
      while (!(USART1.STATUS & USART_RXCIF_bm)){
-        
+         count++;
+         if(count == 10000)
+             break;
      }  // Wait for data
      return USART1.RXDATAL;  // Return received byte
  }
@@ -72,6 +77,7 @@ uint8_t adc_to_signmag_custom(uint16_t adc_val) {
      // Enable transmitter and receiver
      USART1.CTRLB = 0b11000000;
  }
+ 
 int main(void) {
     setup_clock();
     USART_Init();
@@ -124,19 +130,68 @@ int main(void) {
                 ADC0.MUXPOS = 0x04;       // Switch back to PD2 (AIN7)
             }
             ADC0.INTFLAGS = 0b00000001;
+            
             // --- Transmit control packet ---
             tx_buffer[0] = 0b00000000 | result_left;
             tx_buffer[1] = 0b00000000 | result_right;
             tx_buffer[2] = 0b00000000 | button_pressed;
-
+            rx_buffer = USART_Receive();
+            _delay_ms(10);
             for (int i = 0; i < PACKET_SIZE; i++) {
                 USART_Transmit(tx_buffer[i]);
-                _delay_ms(10);
-            }
+                }
         }
-        // --- Receive response packet ---
-        for (int i = 0; i < PACKET_SIZE; i++) {
-            rx_buffer[i] = USART_Receive();
         }
+    }/*
+#define F_CPU 16000000UL
+#include <util/delay.h>
+volatile int count = 0;
+void setup_clock() {
+     CCP = 0xD8;
+     CLKCTRL.OSCHFCTRLA = 0b00011100;      // Set 16 MHz internal oscillator
+     while (CLKCTRL.MCLKSTATUS & 0b00000001); // Wait for clock switch to complete
+ }
+ 
+ void USART_Transmit(uint16_t data) {
+     while (!(USART1.STATUS & USART_DREIF_bm));  // Wait until buffer is empty
+     USART1.TXDATAL = data;  // Send data
+ }
+ 
+ uint16_t USART_Receive(void) {
+    
+     while (!(USART1.STATUS & USART_RXCIF_bm)){
+         count++;
+         if(count == 10000)
+             break;
+     }  // Wait for data
+     return USART1.RXDATAL;  // Return received byte
+ }
+ 
+ void USART_Init() {
+     // Set baud rate
+     //USART1.BAUD = 0000010011100010;
+     USART1.BAUD = 6666;
+     // Set frame format: 8-bit, no parity, 1 stop bit (8N1)
+     USART1.CTRLC = 0b00001011;
+     
+     USART1.CTRLA = 
+    
+     // Set TXD (PC0 and PC1) as output
+     PORTC.DIRSET = 0b00000001;
+     PORTC.DIRCLR = 0b00000010; 
+    
+     // Enable transmitter and receiver
+     USART1.CTRLB = 0b11000000;
+ }
+volatile uint16_t result = 0;
+int main(void) {
+    setup_clock();
+    USART_Init();
+    while(1){
+    USART_Transmit(0x00AB);
+    USART_Transmit(0x00AC);
+    USART_Transmit(0x00AD);
+    _delay_ms(100);
+    result = USART_Receive();
     }
-}
+}*/
