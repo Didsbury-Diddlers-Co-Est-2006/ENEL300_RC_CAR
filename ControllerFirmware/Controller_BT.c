@@ -47,35 +47,33 @@ uint8_t adc_to_signmag_custom(uint16_t adc_val) {
  }
  
  void USART_Transmit(uint16_t data) {
-     while (!(USART1.STATUS & USART_DREIF_bm));  // Wait until buffer is empty
-     USART1.TXDATAL = data;  // Send data
+     while (!(USART0.STATUS & USART_DREIF_bm));  // Wait until buffer is empty
+     USART0.TXDATAL = data;  // Send data
  }
  
  uint16_t USART_Receive(void) {
     
-     while (!(USART1.STATUS & USART_RXCIF_bm)){
+     while (!(USART0.STATUS & USART_RXCIF_bm)){
          count++;
          if(count == 10000)
              break;
      }  // Wait for data
-     return USART1.RXDATAL;  // Return received byte
+     return USART0.RXDATAL;  // Return received byte
  }
  
  void USART_Init() {
      // Set baud rate
      //USART1.BAUD = 0000010011100010;
-     USART1.BAUD = 6666;
+     USART0.BAUD = 6666;
      // Set frame format: 8-bit, no parity, 1 stop bit (8N1)
-     USART1.CTRLC = 0b00001011;
-     
-     USART1.CTRLA = 
+     USART0.CTRLC = 0b00001011;
     
      // Set TXD (PC0 and PC1) as output
-     PORTC.DIRSET = 0b00000001;
-     PORTC.DIRCLR = 0b00000010; 
+     PORTA.DIRSET = 0b00000001;
+     PORTA.DIRCLR = 0b00000010; 
     
      // Enable transmitter and receiver
-     USART1.CTRLB = 0b11000000;
+     USART0.CTRLB = 0b11000000;
  }
  
 int main(void) {
