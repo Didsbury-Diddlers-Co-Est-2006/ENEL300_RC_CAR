@@ -134,7 +134,7 @@ int main(void) {
             tx_buffer[1] = 0b00000000 | result_right;
             tx_buffer[2] = 0b00000000 | button_pressed;
             rx_buffer = USART_Receive();
-            _delay_ms(10);
+            _delay_ms(1);
             for (int i = 0; i < PACKET_SIZE; i++) {
                 USART_Transmit(tx_buffer[i]);
                 }
