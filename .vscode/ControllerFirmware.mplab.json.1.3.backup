@@ -1,12 +1,14 @@
 {
-    "importedFrom": "file:///c:/Users/devon/OneDrive%20-%20University%20of%20Calgary/Documents/GitHub/ENEL300_RC_CAR/ECUFirmware/ECUFirmware.X",
-    "version": "1.4",
+    "importedFrom": "file:///c:/Users/devon/OneDrive%20-%20University%20of%20Calgary/Documents/GitHub/ENEL300_RC_CAR/ControllerFirmware/ControllerFirmware.X",
+    "version": "1.3",
     "configurations": [
         {
             "name": "default",
             "id": "conf1",
+            "targetDevice": "AVR128DB28",
             "imageType": "application",
-            "imagePath": "./out/ECUFirmware/default.elf",
+            "imagePath": "./out/ControllerFirmware/default.elf",
+            "platformTool": "default-tool",
             "packs": [
                 {
                     "name": "AVR-Dx_DFP",
@@ -15,9 +17,7 @@
                 }
             ],
             "fileSet": "Project files",
-            "toolchain": "default-XC8",
-            "toolProperties": "default-tool",
-            "device": "AVR128DB28"
+            "toolchain": "default-XC8"
         }
     ],
     "propertyGroups": [
@@ -33,7 +33,7 @@
                 "HI-TECH-COMP.default-char-type": true,
                 "HI-TECH-COMP.define-macros": "",
                 "HI-TECH-COMP.disable-optimizations": false,
-                "HI-TECH-COMP.extra-include-directories": "ECUFirmware/ECUFirmware.X",
+                "HI-TECH-COMP.extra-include-directories": "ControllerFirmware/ControllerFirmware.X",
                 "HI-TECH-COMP.favor-optimization-for": "-speed,+space",
                 "HI-TECH-COMP.garbage-collect-data": true,
                 "HI-TECH-COMP.garbage-collect-functions": true,
@@ -82,7 +82,7 @@
                 "HI-TECH-LINK.display-hex-usage": false,
                 "HI-TECH-LINK.display-overall-usage": true,
                 "HI-TECH-LINK.display-psect-usage": false,
-                "HI-TECH-LINK.extra-lib-directories": "ECUFirmware/ECUFirmware.X",
+                "HI-TECH-LINK.extra-lib-directories": "ControllerFirmware/ControllerFirmware.X",
                 "HI-TECH-LINK.fill-flash-options-addr": "",
                 "HI-TECH-LINK.fill-flash-options-const": "",
                 "HI-TECH-LINK.fill-flash-options-how": "0",
@@ -122,23 +122,13 @@
                 "XC8-config-global.user-pack-device-support": "",
                 "XC8-config-global.wpo-lto": false
             }
-        },
-        {
-            "name": "default-tool",
-            "type": "tool",
-            "properties": {
-                "debugoptions.useswbreakpoints": true,
-                "memories.programmemory.ranges": "0-ffff",
-                "programmerToGoFilePath": "C:/Users/vikra/OneDrive/Documents/Vikram School/Second Year Eng/WINTER/ENEL300/ECUFirmware.X/debug/default/ECUFirmware_ptg"
-            }
         }
     ],
     "fileSets": [
         {
             "name": "Project files",
             "files": [
-                "ECUFirmware/ECUFirmware.X/Makefile",
-                "ECUFirmware/ECUFirmware.X/*{.c,.h}",
+                "ControllerFirmware/ControllerFirmware.X/*",
                 "BluetoothFirmware/Application/ECU_S&R.c"
             ],
             "encoding": "ISO-8859-1"

@@ -1,12 +1,14 @@
 {
     "importedFrom": "file:///c:/Users/devon/OneDrive%20-%20University%20of%20Calgary/Documents/GitHub/ENEL300_RC_CAR/ECUFirmware/ECUFirmware.X",
-    "version": "1.4",
+    "version": "1.3",
     "configurations": [
         {
             "name": "default",
             "id": "conf1",
+            "targetDevice": "AVR128DB28",
             "imageType": "application",
             "imagePath": "./out/ECUFirmware/default.elf",
+            "platformTool": "default-tool",
             "packs": [
                 {
                     "name": "AVR-Dx_DFP",
@@ -15,9 +17,7 @@
                 }
             ],
             "fileSet": "Project files",
-            "toolchain": "default-XC8",
-            "toolProperties": "default-tool",
-            "device": "AVR128DB28"
+            "toolchain": "default-XC8"
         }
     ],
     "propertyGroups": [

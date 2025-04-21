@@ -7,6 +7,7 @@
 
 
  #include <avr/io.h>
+#include <stdint.h>
  #include <util/delay.h>
 
  #define PACKET_SIZE 3
@@ -61,27 +62,31 @@ volatile uint16_t light_toggle = 0;
     USART_Init();
 
     while (1) {
-        // --- Receive control packet ---
-        for (uint16_t i = 0; i < PACKET_SIZE; i++) {
-            rx_buffer[i] = USART_Receive();
-        }
+        // // --- Receive control packet ---
+        // for (uint16_t i = 0; i < PACKET_SIZE; i++) {
+        //     rx_buffer[i] = USART_Receive();
+        // }
 
-        // Decode motor values and light toggle
-        left_sm = rx_buffer[0];                // Or whatever variable you have for left motor speed & direction
-        right_sm = rx_buffer[2];               // Or whatever variable you have for right motor speed & direction
-        light_toggle = rx_buffer[1];    //
+        // // Decode motor values and light toggle
+        // left_sm = rx_buffer[0];                // Or whatever variable you have for left motor speed & direction
+        // right_sm = rx_buffer[2];               // Or whatever variable you have for right motor speed & direction
+        // light_toggle = rx_buffer[1];    //
 
-        //update_motors(left_sm, right_sm); //Or whatever function you have for updating motor values
-        //update_lights(light_toggle);      //Or whatever function you have for updating light values
+        // //update_motors(left_sm, right_sm); //Or whatever function you have for updating motor values
+        // //update_lights(light_toggle);      //Or whatever function you have for updating light values
 
-        // --- Transmit response packet ---
-        tx_buffer[0] = 0b0000000010101010;     // e.g., ultrasonic
-        tx_buffer[1] = 0b0000000000000001;     // e.g., battery
-        tx_buffer[2] = 0b0000000000000000;
+        // // --- Transmit response packet ---
+        // tx_buffer[0] = 0b0000000010101010;     // e.g., ultrasonic
+        // tx_buffer[1] = 0b0000000000000001;     // e.g., battery
+        // tx_buffer[2] = 0b0000000000000000;
 
-        for (uint8_t i = 0; i < PACKET_SIZE; i++) {
-            USART_Transmit(tx_buffer[i]);
-            _delay_ms(10);
-        }
+        // for (uint8_t i = 0; i < PACKET_SIZE; i++) {
+        //     USART_Transmit(tx_buffer[i]);
+        //     _delay_ms(10);
+
+        uint16_t rx_buff = USART_Receive();
+
+        USART1_Transmit(0x00BA);
+        // }
     }
 }
