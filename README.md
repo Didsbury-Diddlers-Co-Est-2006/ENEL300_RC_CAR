@@ -3,7 +3,8 @@
 # DIDSBURY DIDDLERS & Co. Est. 2006 - README
 
 ## Project Overview
-![Image of Truck](./Pictures/TruckFrount.jpeg)
+![Image of Truck](./Pictures/TruckFrount.jpeg)  
+*Photo of finished project*
 
 
 Remote control car for our ENEL 300 design class at the Schulich School of Engineering at University of Calgary.
@@ -17,7 +18,8 @@ Our car integrates a variety of features including distance measurement, metal d
 The workload of the various systems was divided amongst us based on interest and skill. Coleman was responsible for implementing metal detection and distance measurement, in addition to working on Bluetooth communications, and controller design. Procter was responsible for ECU, power regulation, inter-board communication, general code management and review. Garcia was responsible for software development, 3D design and printing, and product selection. Calvin was responsible for motor driver development, 3D design, and Bluetooth communications.
 
 ## Systems Overview
-![SystemArchitectureBlockDiagram](./Pictures/SystemArchitectureBlockDiagram.png)
+![SystemArchitectureBlockDiagram](./Pictures/SystemArchitectureBlockDiagram.png)  
+*Block diagram overview of electronic board functionality*
 
 The block diagram shows the operating architecture of the RC truck describing the PCB boards connections to each other. There were four custom PCBs in which 3 were used in the final design. Each board design function and integration are described in detail in the sections bellow. 
 
@@ -31,7 +33,8 @@ The four boards include:
 
 ## Sensors Systems (Sensor Board)
 ### Metal Detector
-![Picture of Metal detector coil](./Pictures/metalDetector.jpeg)
+![Picture of Metal detector coil](./Pictures/metalDetector.jpeg)  
+*Metal detection inductor coild attatched to bottom of vehicle*
 
 The metal detection system is designed around a 555 timer IC and inductor capacitor (LC) circuit. The 555 timer produces an AC input in which the frequency response output varies with changes in inductance. By exposing the inductor coil placed on the bottom of the car to a copper sheet the inductance of the coil changes and the frequency of the output changes in response.
 
@@ -69,7 +72,7 @@ The power switch uses a PMOS high side switch topology to switch between three s
 ### Bluetooth USART
 
 ![Picture of HC-05](./Pictures/HC-05BluetoothModule.jpg)  
-[*Image Cred.*](https://www.electronicwings.com/sensors-modules/bluetooth-module-hc-05-)
+*[Image Cred.](https://www.electronicwings.com/sensors-modules/bluetooth-module-hc-05-) HC-05 Bluetooth Module used in the vehicle*
 
 The ECU board and controller boards preformed wireless communications via a USART over Bluetooth communications module [HC-05](https://www.electronicwings.com/sensors-modules/bluetooth-module-hc-05-). The controller board would send movement control and light switch position data to the ECU board, describing positions of single axis joy sticks and if the lights should be on or not. The ECU board would send sensor data including distance and metal detection.
 
@@ -80,7 +83,8 @@ One 8-bit packet was sent from the ECU to describe metal detection (most signifi
 ### I<sup>2</sup>C Inter-board Communication
 An I<sup>2</sup>C bus was utilized between boards within the vehicle (ECU, Motor Board, and Sensor Board). Connection between boards was accomplished using the same custom Molex connector as described in the power regulation section.
 
-![Picture of Car Opened with Wires](./Pictures/CarOpenWires.jpg)
+![Picture of Car Opened with Wires](./Pictures/CarOpenWires.jpg)  
+*3d printed body removed showing wiring*
 
 The ECU hosted the I<sup>2</sup>C bus housing the pull-up resistors and acted as the master on the bus. The ECU would relay motor control data received from the controller board to the Motor Board. The ECU would request data from the Sensor Board, receiving distance and metal detection data. I<sup>2</sup>C communications is a non-blocking function within the super loop of all boards. 
 
@@ -97,7 +101,8 @@ I<sup>2</sup>C packets took a very similar form to USART packets over Bluetooth.
 ### LCD UI
 The 2x16 ASCII LCD selected was equipped with an I<sup>2</sup>C piggy-back-board to allow for fewer required pins for operation. The controller board acted as the master and LCD as slave on the I<sup>2</sup>C bus.
 
-![Picture of LCD on Controller](./Pictures/ControllerLCD.jpeg)
+![Picture of LCD on Controller](./Pictures/ControllerLCD.jpeg)  
+*Controller with LCD display, thumb joysticks and lights switch*
 
 On power up the LCD would display the team name, before displaying the distance data, and metal detection data Custom functions were written to interface with the LCD to allow for ease of formatting the results on the screen, while avoiding having to do floating point calculations. 
 
@@ -110,13 +115,15 @@ Data collected through the input devices and data required for displaying on the
 
 
 ## Locomotion Systems (Motor Board)
-![Picture of Motors](./Pictures/motor.jpg)
+![Picture of Motors](./Pictures/motor.jpg)  
+*Motors Used in vehicle*
 
 The selected motors are driven using two L298N H-Bridge motor drivers, using 12.6V supplied from the battery with inline Toshiba TCKE812NA E-Fuses for over current protection. As this is a high current board, large polygon pours were used when dealing with high current nets. Thermal reliefs were also removed to improve thermal conduction during operation and max current tolerance. As this board interfaces with large inductive loads, fly back diodes were also used. 
 
 The Motor Control Board is also equipped with an AVR128DB28 to interface with the I<sup>2</sup>C bus and use information received to operate the motor driver ICs. The Motor Control Board receives two 8-bit packets containing the sign-magnitude values for the speeds the motors should be spinning on each side of the vehicle. To control the motor speed a PWM signal generated using the AVR128DB28 was used as an input to the enable pin of the L298N motor drivers. The 8-bit packets are decoded to find the polarity (from sign) and duty of PWM (from magnitude). 
 
-![Picture of Motor Board](./Pictures/MotorBoard_PCB_Routing.jpg)
+![Picture of Motor Board](./Pictures/MotorBoard_PCB_Routing.jpg)  
+*PCB routing layout of the Motor Control Board*
 
 
 ## Mechanical Design
